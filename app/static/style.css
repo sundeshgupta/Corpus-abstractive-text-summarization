@@ -21,3 +21,7 @@
 .tab a {
 	color: black !important;
 }
+
+#head1 {
+	font-weight: bold;
+}
