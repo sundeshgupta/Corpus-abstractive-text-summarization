@@ -15,15 +15,16 @@ function createtable(res) {
 
 function images(res) {
   list = ['_mean_cmp_ratio.png', '_mean_ext_coverage.png', '_mean_ext_density.png', '_mean_word_article.png', '_mean_word_highlight.png'];
+  var staturl = 'static/img/'
   for(var i=0; i < 5; i++) {
-    list[i]=res+list[i];
+    list[i]=staturl+res+list[i];
   }
   console.log(list);
-  document.getElementById('img1').src='static/'+list[0];
-  document.getElementById('img2').src='static/'+list[1];
-  document.getElementById('img3').src='static/'+list[2];
-  document.getElementById('img4').src='static/'+list[3];
-  document.getElementById('img5').src='static/'+list[4];
+  document.getElementById('img1').src=list[0];
+  document.getElementById('img2').src=list[1];
+  document.getElementById('img3').src=list[2];
+  document.getElementById('img4').src=list[3];
+  document.getElementById('img5').src=list[4];
 }
 
 function radiobutton()
