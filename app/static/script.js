@@ -4,8 +4,7 @@ document.getElementById('form1').addEventListener('submit', function(event){
 	var url = '/api/summarize';
 	xhr.open('POST', url, 'true');
 	xhr.onload = function() {
-		if(xhr.readyState==4 && xhr.status == '201') {
-			console.log(xhr.responseText);
+		if(xhr.readyState==4 && xhr.status == '200') {
 			var res = JSON.parse(xhr.responseText);
 			document.getElementById('summary').innerHTML = res.summary;
 		}
@@ -18,7 +17,6 @@ document.getElementById('form1').addEventListener('submit', function(event){
 	var data = {};
 	data.text = document.getElementById('textarea1').value;
 	var json = JSON.stringify(data);
-	console.log(json);
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.send(json);
 });

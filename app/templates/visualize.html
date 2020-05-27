@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="left col s10 offset-s5">
+    <form action="#" id='id1'>
+        <p>
+          <label>
+            <input class="with-gap" name="dataset" type="radio" value='cnn'/>
+            <span>CNN</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap" name="dataset" type="radio" value='giga'/>
+            <span>GIGAWORD</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap" name="dataset" type="radio" value='fpj'/>
+            <span>FREEPRESSJOURNAL</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input class="with-gap" name="dataset" type="radio" value='dat2'/>
+            <span>DATASET-2</span>
+          </label>
+        </p>
+    </form>
+    <table class="centered" id="table1">
+    </table>
+    <script type="text/javascript">
+      function createtable() {
+        return true;
+      }
+      function radiobutton()
+      {
+        var dataset = document.querySelector('input[name = dataset]:checked');
+        if(!dataset)
+        {
+          console.log('dataset');
+          return false;
+        }
+        var xhr = new XMLHttpRequest();
+        var url = '/api/visualize';
+        xhr.open('POST', url, 'true');
+        xhr.onload = function() {
+          if(xhr.readyState==4 && xhr.status == '200') {
+            var res = JSON.parse(xhr.responseText);
+            createtable(res);
+          }
+          else {
+            console.log('hey');
+          }
+        }
+        xhr.setRequestHeader('Content-Type', 'text/plain');
+        xhr.send(dataset.value);
+      }
+      var rad = document.getElementsByName('dataset');
+      console.log(rad);
+      for (var i = 0; i < rad.length; i++) {
+          rad[i].addEventListener('change', radiobutton);
+      }
+    </script>
+  </div>
+</div>
+{% endblock %}

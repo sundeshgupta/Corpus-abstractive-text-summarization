@@ -25,3 +25,13 @@
 #head1 {
 	font-weight: bold;
 }
+
+#id1 span {
+	color: black !important;
+	width: 20%;
+}
+
+#id1 input:checked + span {
+	font-weight: bold;
+	background-color: #ebe8d5;
+}
