@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, jsonify, request
+from datasets import datasets
 
 app = Flask(__name__)
 
@@ -20,8 +21,9 @@ def summarize():
 	data = request.get_json()
 	return jsonify(text = data['text'], summary = data['text'])
 
-@app.route('/api/visualze', methods=['POST'])
+@app.route('/api/visualize', methods=['POST'])
 def visualize():
-	names = ['_mean_cmp_ratio.png', '_']
+	dataset = str(request.get_data().decode())
+	return jsonify(datasets[dataset])
 
 app.run(port = 8000, debug=True)

@@ -28,7 +28,7 @@
 
 #id1 span {
 	color: black !important;
-	width: 20%;
+	width: 100%;
 }
 
 #id1 input:checked + span {
