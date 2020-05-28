@@ -25,5 +25,5 @@ def summarize():
 def visualize():
 	dataset = str(request.get_data().decode())
 	return jsonify(datasets[dataset])
-
-app.run(port = 8000, debug=True)
+if(__name__=='__main__'):
+    app.run(port = 8000, debug=True)
