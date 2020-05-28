@@ -52,7 +52,7 @@ https = 'https://'
 visited = set()
 cnt = 0
 
-f=open('it123.xml','w')
+f=open('HindustanTimes.xml','w')
 
 q = deque()
 q.append(URL)
