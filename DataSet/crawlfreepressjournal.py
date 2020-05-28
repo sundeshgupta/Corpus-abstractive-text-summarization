@@ -98,15 +98,18 @@ while len(q) > 0:
             
     if title == "":
         continue
-        
+    
+    title.replace('\n', ' ')
+    para.replace('\n', ' ')
+    
     cnt += 1
-    s="<url id = " + str(cnt) + ">"+url+'</url>'
+    s="<url id = '" + str(cnt) + "' >"+url+'</url>'
     s+='\n'
-    s+="<title id = " + str(cnt) + ">"+title+'</title>'
+    s+="<title id = '" + str(cnt) + "' >"+title+'</title>'
     s+='\n'
-    s+="<body id = " + str(cnt) + " >"+para+"</body>"
+    s+="<body id = '" + str(cnt) + "' >"+para+"</body>"
     s+='\n'
-    s+="<date id = "+ str(cnt) + ">" + date + "<\date>"
+    s+="<date id = '"+ str(cnt) + "' >" + date + "</date>"
     s+='\n'
     f.write(s)
     
