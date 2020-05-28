@@ -34,7 +34,7 @@ Tensorflow 1.0's [new seq2seq library](https://www.tensorflow.org/api_guides/pyt
 
 4. `decode.py` uses the Python package pyrouge to run ROUGE evaluation. pyrouge provides an easier-to-use interface for the official Perl ROUGE package, which you must install for pyrouge to work.
 
-5. Install pyrouge by running `pip install pyrouge`
+5. Install pyrouge by running `cd pyrouge && python setup.py install`
 
 6. Download a directory called ROUGE-1.5.5 from *[here](https://github.com/andersjo/pyrouge)*
 
