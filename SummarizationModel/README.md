@@ -1,6 +1,6 @@
 This repository contains code for Abstractive and Extractive Summarization Models.
 
-Abstractive Model code is from *[@becxer's](https://github.com/becxer/pointer-generator/)* repository, which is *[@abisee's](https://github.com/abisee/pointer-generator/)* code, update for Python 3.
+Abstractive Model code is from *[@becxer's](https://github.com/becxer/pointer-generator/)* repository, which is *[@abisee's](https://github.com/abisee/pointer-generator/)* code but updated for Python 3.
 
 Extractive Model uses Python's summa package
 
