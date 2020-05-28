@@ -28,6 +28,9 @@ def summarize():
 @app.route('/api/visualize', methods=['POST'])
 def visualize():
 	dataset = request.get_data().decode()
+	if(dataset == 'all'):
+		return jsonify(datasets)
+
 	return jsonify(datasets[dataset])
 
 if(__name__=='__main__'):
