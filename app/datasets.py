@@ -39,6 +39,20 @@ dataset1 = {
 	'Mean extractive fragment density': 1.412259883074382
 }
 
+dataset2 = {
+	'Number of articles-summary pairs': 2196,
+	'Number of distinct words in article': 43896,
+	'Number of distinct words in summary': 6673,
+	'Number of distinct words common in article and summary': 6388,
+	'Mean number of word in summary': 11.8816029143898,
+	'Mean number of word in article': 437.14071038251365,
+	'Mean number of sentences per article': 1.0,
+	'Mean compression ratio': 38.75446019461595,
+	'Mean extractive fragment coverage': 0.7533885462814058,
+	'Mean extractive fragment density': 1.6606111538612436
+}
+
 datasets['cnn'] = cnn
 datasets['giga'] = gigaword
 datasets['free'] = dataset1
+datasets['hindustan'] = dataset2
