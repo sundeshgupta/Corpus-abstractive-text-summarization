@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, jsonify, request
 from datasets import datasets
+from summarizationModel import extractive
 
 app = Flask(__name__)
 
@@ -19,11 +20,15 @@ def evaluate():
 @app.route('/api/summarize', methods=['POST'])
 def summarize():
 	data = request.get_json()
-	return jsonify(text = data['text'], summary = data['text'])
+	text = data['text']
+	summary = extractive.summarize(text)
+
+	return jsonify(text = data['text'], summary = summary)
 
 @app.route('/api/visualize', methods=['POST'])
 def visualize():
-	dataset = str(request.get_data().decode())
+	dataset = request.get_data().decode()
 	return jsonify(datasets[dataset])
+
 if(__name__=='__main__'):
     app.run(port = 8000, debug=True)
