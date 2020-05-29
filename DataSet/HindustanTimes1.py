@@ -4,35 +4,46 @@ from collections import deque
 import emoji
 import re
 
-def remove_unwanted(inputString):
+# Gets rid of unnecessary characters(unicode characters)
+def remove_unwanted(inputString): 
     return inputString.encode('ascii', 'ignore').decode('ascii')
 
+# Returns summary, content and date of article
 def get_summary_article_date(soup):
 
     summary = ""
-    # table = soup.find( 'h1',attrs = {'class':'K55Ut'})
+
+    # Extracts summary
     table = soup.find( 'h1')
     if table is None:
         return None, None, None
 
     summary = table.text.strip()
+
+    # Removes tags
     summary=summary.replace('<','')
     summary=summary.replace('>','')
     summary=summary.replace('&','')
 
+    # Removes small length summaries to improve dataset
     if len(summary)<25:
         return None, None, None
     
-    # print(illegal)
     print(summary)
 
     article=""
+
+    # Extracts article content
     for row in table.find_all_next('p'):
         text = row.text
         article += text.strip() +" "
+
+        # Removes tags
         article=article.replace('<','')
         article=article.replace('>','')
         article=article.replace('&','')
+
+    # Fixed minimum length to improve dataset
     if len(article)<200:
         return None, None, None
 
@@ -41,6 +52,7 @@ def get_summary_article_date(soup):
     
     table = soup.find('span', attrs = {'class':'text-dt'})
 
+    # Extracts date
     date = ""
     if table is not None:
         date = table.text.strip()
@@ -53,13 +65,14 @@ domain = "https://www.hindustantimes.com/"
 http = 'http://'
 https = 'https://'
 visited = set()
-cnt = 0
+cnt = 0 # No of articles stored
 
 f=open('it123.xml','w')
 
 q = deque()
 q.append(URL)
 
+# Appling BFS to visit links
 while len(q)>0:
     
     URL=q.popleft()
@@ -93,9 +106,11 @@ while len(q)>0:
     for i in l:
         if i is None:
             continue
+        # Helps filter unnecessary urls
         if len(i)<65:
             continue
 
+        #Makes the process many times faster and filters unnecessary urls
         blist=['twitter.com','facebook.com','linkedin.com','reddit.com','bollywood','regional-movies','music','television','login']   
         illegal=0
 
@@ -123,11 +138,14 @@ while len(q)>0:
     s+='\n'
     s+=("<date >"+date+"</date>")
     s+='\n'
+    # Improves dataset
     if len(s)<400:
         continue
     cnt+=1
     s=s.replace('&','')
     remove_unwanted(s)
+
+    # Writing s to xml file
     f.write(s)
   
 f.close()
