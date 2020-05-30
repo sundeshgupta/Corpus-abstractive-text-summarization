@@ -7,7 +7,7 @@ document.getElementById('form1').addEventListener('submit', function(event){
 	xhr.onload = function() {
 		if(xhr.readyState==4 && xhr.status == '200') {
 			var res = JSON.parse(xhr.responseText);
-			document.getElementById('summary').innerHTML = res.summary;
+			document.getElementById('summary1').innerHTML = res.summary;
 		}
 		else {
 			var res = '{"summary":"sample summary"}';
@@ -31,7 +31,7 @@ document.getElementById('form1').addEventListener('submit', function(event){
 		else {
 			var res = '{"summary":"sample summary"}';
 			var res1 = JSON.parse(res);
-			document.getElementById('summary').innerHTML = res1.summary;
+			document.getElementById('summary2').innerHTML = res1.summary;
 		}
 	}
 	var data1 = {};

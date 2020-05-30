@@ -12,10 +12,10 @@ def extractiv(text):
 	return summary
 
 def abstractive(text):
+	os.chdir('/home/ubuntu/Software/Corpus-abstractive-text-summarization/app/summarizationModel/')
 	file = open('/home/ubuntu/Software/Corpus-abstractive-text-summarization/app/summarizationModel/IO/in.txt', 'w')
 	file.write(text)
 	file.close()
-	os.chdir('/home/ubuntu/Software/Corpus-abstractive-text-summarization/app/summarizationModel')
 	os.system('/home/ubuntu/Software/Corpus-abstractive-text-summarization/app/summarizationModel/get_summ_abs.sh')
 	file = open('/home/ubuntu/Software/Corpus-abstractive-text-summarization/app/summarizationModel/IO/out.txt')
 	summary = file.read()
