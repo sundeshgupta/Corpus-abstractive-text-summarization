@@ -2,4 +2,4 @@ flask
 gunicorn
 summa
 pyrouge
-tensorflow==1.7.0
+tensorflow==1.15.2
