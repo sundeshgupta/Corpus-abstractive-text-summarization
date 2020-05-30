@@ -82,8 +82,8 @@ function radiobutton()
       images(dataset.value);
     }
   }
-  xhr.setRequestHeader('Content-Type', 'text/plain');
-  xhr.send(dataset.value);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({'dataset': dataset.value}));
 }
 
 function compare() {
@@ -104,8 +104,8 @@ function compare() {
       createtable2(res);
     }
   }
-  xhr.setRequestHeader('Content-Type', 'text/plain');
-  xhr.send('all');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({'dataset': 'all'}));
 }
 
 var rad = document.getElementsByName('dataset');
