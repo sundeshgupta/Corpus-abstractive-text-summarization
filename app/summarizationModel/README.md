@@ -28,7 +28,7 @@ Tensorflow 1.0's [new seq2seq library](https://www.tensorflow.org/api_guides/pyt
 
 1. Download the pretrained zip file
 
-2. After extracting the zip file, there will be folder with the same name as the zip file. Rename it to '0pretrained_model', and place it in the SummarizeModel directory
+2. After extracting the zip file, there will be folder with the same name as the zip file. Rename it to 'pretrained_model', and place it in the SummarizeModel directory
 
 3. We will need Stanford CoreNLP to tokenize the data. Download it *[here](https://stanfordnlp.github.io/CoreNLP/)*, unzip it, and place the folder 'stanford-corenlp-4.0.0' in SummarizeModel directory.
 
