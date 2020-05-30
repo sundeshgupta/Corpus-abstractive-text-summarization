@@ -11,30 +11,7 @@ import re
 import matplotlib.pyplot as plt
 import xml.etree.ElementTree as ET
 
-
-# In[2]:
-
-
-cnn = tfds.load('cnn_dailymail')
-
-cnn = cnn['train']
-
-vocab_article = set()
-vocab_summary = set()
-
-cnt = 0
-sentence = 0
-word_article = 0
-word_highlight = 0
-comp_ratio = 0
-ext_coverage = 0
-ext_density = 0
-
-mean_word_article = {}
-mean_word_highlight = {}
-mean_cmp_ratio = {}
-mean_ext_coverage = {}
-mean_ext_density = {}
+# Finding Extractive Fragment
 
 def extractive_fragment(article, summary):
     F = []
@@ -60,7 +37,46 @@ def extractive_fragment(article, summary):
         j = 0
         F.append(f)
     return F
-    
+
+# Plotting Graph
+
+def plot(data, title, name):
+    x = []
+    y = []
+    cur = 0
+    for key in sorted(data):
+        x.append(key)
+        cur += data[key]
+        y.append(cur)
+        
+    plt.plot(x, y)
+    plt.title(title)
+    plt.savefig(name, dpi=300, bbox_inches='tight')
+    plt.show()
+
+# CNN Dataset
+
+cnn = tfds.load('cnn_dailymail')
+
+cnn = cnn['train']
+
+vocab_article = set()
+vocab_summary = set()
+
+cnt = 0
+sentence = 0
+word_article = 0
+word_highlight = 0
+comp_ratio = 0
+ext_coverage = 0
+ext_density = 0
+
+mean_word_article = {}
+mean_word_highlight = {}
+mean_cmp_ratio = {}
+mean_ext_coverage = {}
+mean_ext_density = {}
+  
 for i in cnn:
     
     cnt += 1
@@ -175,20 +191,6 @@ print("Mean number of sentences per article: " + str(sentence))
 print("Mean compression ratio: " + str(comp_ratio))
 print("Mean extractive fragment coverage: " + str(ext_coverage))
 print("Mean extractive fragment density: " + str(ext_density))
-
-def plot(data, title, name):
-    x = []
-    y = []
-    cur = 0
-    for key in sorted(data):
-        x.append(key)
-        cur += data[key]
-        y.append(cur)
-        
-    plt.plot(x, y)
-    plt.title(title)
-    plt.savefig(name, dpi=300, bbox_inches='tight')
-    plt.show()
     
 plot(mean_ext_coverage, 'Extractive fragment coverage', 'cnn_mean_ext_coverage.png')
 plot(mean_ext_density, 'Extractive fragment density', 'cnn_mean_ext_density.png')
@@ -196,9 +198,7 @@ plot(mean_word_highlight, 'Number of word in summary', 'cnn_mean_word_highlight.
 plot(mean_word_article, 'Number of word in article', 'cnn_mean_word_article.png')
 plot(mean_cmp_ratio, 'Compression Ratio', 'cnn_mean_cmp_ratio.png')
 
-
-# In[3]:
-
+# Gigaword Dataset
 
 gigaword = tfds.load('gigaword')
 
@@ -221,31 +221,6 @@ mean_cmp_ratio = {}
 mean_ext_coverage = {}
 mean_ext_density = {}
 
-def extractive_fragment(article, summary):
-    F = []
-    i = 0
-    j = 0
-    p = len(article)
-    q = len(summary)
-    while i < q:
-        f = []
-        while j < p:
-            if summary[i] == article[j]:
-                tmp_i = i
-                tmp_j = j
-                while tmp_i < q and tmp_j < p and summary[tmp_i] == article[tmp_j]:
-                    tmp_i += 1
-                    tmp_j += 1
-                if len(f) < (tmp_i - i):
-                    f = summary[i:tmp_i]
-                j = tmp_j
-            else:
-                j += 1
-        i = i + max(len(f), 1)
-        j = 0
-        F.append(f)
-    return F
-    
 for i in gigaword:
     
     cnt += 1
@@ -361,29 +336,13 @@ print("Mean compression ratio: " + str(comp_ratio))
 print("Mean extractive fragment coverage: " + str(ext_coverage))
 print("Mean extractive fragment density: " + str(ext_density))
 
-def plot(data, title, name):
-    x = []
-    y = []
-    cur = 0
-    for key in sorted(data):
-        x.append(key)
-        cur += data[key]
-        y.append(cur)
-        
-    plt.plot(x, y)
-    plt.title(title)
-    plt.savefig(name, dpi=300, bbox_inches='tight')
-    plt.show()
-    
 plot(mean_ext_coverage, 'Extractive fragment coverage', 'giga_mean_ext_coverage.png')
 plot(mean_ext_density, 'Extractive fragment density', 'giga_mean_ext_density.png')
 plot(mean_word_highlight, 'Number of word in summary', 'giga_mean_word_highlight.png')
 plot(mean_word_article, 'Number of word in article', 'giga_mean_word_article.png')
 plot(mean_cmp_ratio, 'Compression Ratio', 'giga_mean_cmp_ratio.png')
 
-
-# In[14]:
-
+# Free Press Journal Dataset 
 
 tree = ET.parse('freepressjournal.xml')
 root = tree.getroot()
@@ -404,31 +363,6 @@ mean_word_highlight = {}
 mean_cmp_ratio = {}
 mean_ext_coverage = {}
 mean_ext_density = {}
-
-def extractive_fragment(article, summary):
-    F = []
-    i = 0
-    j = 0
-    p = len(article)
-    q = len(summary)
-    while i < q:
-        f = []
-        while j < p:
-            if summary[i] == article[j]:
-                tmp_i = i
-                tmp_j = j
-                while tmp_i < q and tmp_j < p and summary[tmp_i] == article[tmp_j]:
-                    tmp_i += 1
-                    tmp_j += 1
-                if len(f) < (tmp_i - i):
-                    f = summary[i:tmp_i]
-                j = tmp_j
-            else:
-                j += 1
-        i = i + max(len(f), 1)
-        j = 0
-        F.append(f)
-    return F
     
 for i in range(0, len(root), 4):
     
@@ -536,20 +470,6 @@ print("Mean number of sentences per article: " + str(sentence))
 print("Mean compression ratio: " + str(comp_ratio))
 print("Mean extractive fragment coverage: " + str(ext_coverage))
 print("Mean extractive fragment density: " + str(ext_density))
-
-def plot(data, title, name):
-    x = []
-    y = []
-    cur = 0
-    for key in sorted(data):
-        x.append(key)
-        cur += data[key]
-        y.append(cur)
-        
-    plt.plot(x, y)
-    plt.title(title)
-    plt.savefig(name, dpi=300, bbox_inches='tight')
-    plt.show()
     
 plot(mean_ext_coverage, 'Extractive fragment coverage', 'free_mean_ext_coverage.png')
 plot(mean_ext_density, 'Extractive fragment density', 'free_mean_ext_density.png')
@@ -557,11 +477,9 @@ plot(mean_word_highlight, 'Number of word in summary', 'free_mean_word_highlight
 plot(mean_word_article, 'Number of word in article', 'free_mean_word_article.png')
 plot(mean_cmp_ratio, 'Compression Ratio', 'free_mean_cmp_ratio.png')
 
+# Hindustan Times Dataset
 
-# In[29]:
-
-
-tree = ET.parse('HindustanTimes1.xml')
+tree = ET.parse('HindustanTimes.xml')
 root = tree.getroot()
 
 vocab_article = set()
@@ -581,31 +499,6 @@ mean_cmp_ratio = {}
 mean_ext_coverage = {}
 mean_ext_density = {}
 
-def extractive_fragment(article, summary):
-    F = []
-    i = 0
-    j = 0
-    p = len(article)
-    q = len(summary)
-    while i < q:
-        f = []
-        while j < p:
-            if summary[i] == article[j]:
-                tmp_i = i
-                tmp_j = j
-                while tmp_i < q and tmp_j < p and summary[tmp_i] == article[tmp_j]:
-                    tmp_i += 1
-                    tmp_j += 1
-                if len(f) < (tmp_i - i):
-                    f = summary[i:tmp_i]
-                j = tmp_j
-            else:
-                j += 1
-        i = i + max(len(f), 1)
-        j = 0
-        F.append(f)
-    return F
-    
 for i in range(0, len(root), 4):
     
     highlight = root[i+1].text
@@ -720,29 +613,8 @@ print("Mean compression ratio: " + str(comp_ratio))
 print("Mean extractive fragment coverage: " + str(ext_coverage))
 print("Mean extractive fragment density: " + str(ext_density))
 
-def plot(data, title, name):
-    x = []
-    y = []
-    cur = 0
-    for key in sorted(data):
-        x.append(key)
-        cur += data[key]
-        y.append(cur)
-    
-    plt.plot(x, y)
-    plt.title(title)
-    plt.savefig(name, dpi=300, bbox_inches='tight')
-    plt.show()
-    
 plot(mean_ext_coverage, 'Extractive fragment coverage', 'hindustan_mean_ext_coverage.png')
 plot(mean_ext_density, 'Extractive fragment density', 'hindustan_mean_ext_density.png')
 plot(mean_word_highlight, 'Number of word in summary', 'hindustan_mean_word_highlight.png')
 plot(mean_word_article, 'Number of word in article', 'hindustan_mean_word_article.png')
 plot(mean_cmp_ratio, 'Compression Ratio', 'hindustan_mean_cmp_ratio.png')
-
-
-# In[ ]:
-
-
-
-
