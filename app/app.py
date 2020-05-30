@@ -44,7 +44,7 @@ def summarize():
 	typ = data['type']
 	if(typ == 'extractive'):
 		summary = extractiv(text)
-	else if(typ == 'abstractive'):
+	elif(typ == 'abstractive'):
 		summary = abstractive(text)
 
 	return jsonify(text = data['text'], summary = summary)
