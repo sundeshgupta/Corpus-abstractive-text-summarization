@@ -27,11 +27,15 @@ def summarize():
 
 @app.route('/api/visualize', methods=['POST'])
 def visualize():
-	dataset = request.get_data().decode()
+	dataset = request.get_json()['dataset']
 	if(dataset == 'all'):
 		return jsonify(datasets)
 
 	return jsonify(datasets[dataset])
+
+@app.route('/download', methods=['GET'])
+def download():
+	return render_template('download.html', page='download')
 
 if(__name__=='__main__'):
     app.run(port = 8000, debug=True)
